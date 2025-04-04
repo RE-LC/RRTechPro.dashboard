@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import CategoryForm from "@/components/forms/category-form";
 import { Category } from '@prisma/client';

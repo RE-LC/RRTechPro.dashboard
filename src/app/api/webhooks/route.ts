@@ -49,7 +49,6 @@ export async function POST(req: Request) {
 
   // Do something with payload
   // For this guide, log payload to console
-  const { id } = evt.data;
   const eventType = evt.type;
 
   try {
@@ -60,7 +59,7 @@ export async function POST(req: Request) {
         return new NextResponse("Incomplete Data!", { status: 400 });
       }
   
-      const newUser = await prisma.user.create({
+      await prisma.user.create({
         data: {
           cid: evt.data.id,
           firstname: first_name,
@@ -80,7 +79,7 @@ export async function POST(req: Request) {
         return new NextResponse("User ID is missing!", { status: 400 });
       }
   
-      const updatedUser = await prisma.user.update({
+      await prisma.user.update({
         where: { cid: id },
         data: {
           firstname: first_name ?? undefined,

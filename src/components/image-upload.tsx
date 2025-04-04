@@ -1,6 +1,6 @@
 "use client";
 
-import { CldUploadWidget } from 'next-cloudinary';
+import { CldUploadWidget, CloudinaryUploadWidgetInfo, CloudinaryUploadWidgetResults } from 'next-cloudinary';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -26,8 +26,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     setIsMounted(true);
   }, []);
 
-  const onUpload = (result: any) => {
-    onChange(result.info.secure_url);
+  const onUpload = (result: CloudinaryUploadWidgetResults) => {
+    if (typeof result.info !== 'string' && result.info) {
+      const info: CloudinaryUploadWidgetInfo = result.info;
+      onChange(info.secure_url);
+    }
   };
 
   if (!isMounted) {

@@ -43,7 +43,7 @@ interface CategoryFormProps {
 const API_BASE_URL = process.env.API_BASE_URL;
 
 export default function CategoryForm({ initialData }: CategoryFormProps) {
-    const [loading, setLoading] = useState(false);
+    const [, setLoading] = useState(false);
     const router = useRouter();
 
     const toastMessage = initialData ? 'Category sucessfully updated!' : 'Category sucessfully created!';
@@ -121,7 +121,7 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
                 />
 
                 <Button type="submit" className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    Submit
+                    {action}
                 </Button>
             </form>
         </Form >

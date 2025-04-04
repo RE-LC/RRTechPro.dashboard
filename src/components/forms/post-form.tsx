@@ -84,7 +84,7 @@ interface PostFormProps {
 const API_BASE_URL = process.env.API_BASE_URL;
 
 export default function PostForm({ tags, categories, initialData }: PostFormProps) {
-  const [isClient, setIsClient] = useState(false);
+  const [, setIsClient] = useState(false);
   const [availableTags, setAvailableTags] = useState<Tag[]>(tags);
   const [loading, setLoading] = useState(false);
   const router = useRouter();

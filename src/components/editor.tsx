@@ -15,16 +15,10 @@ import {
   thematicBreakPlugin,
   InsertThematicBreak,
   InsertAdmonition,
-  imagePlugin,
   InsertImage
 } from "@mdxeditor/editor";
 import { FC } from "react";
 import "@mdxeditor/editor/style.css";
-import ImageUpload from "./image-upload";
-
-// Define Cloudinary API credentials (typically you'd store these in environment variables)
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dhf254vgn/image/upload';
-const CLOUDINARY_UPLOAD_PRESET = 'wydoqxyc';
 
 interface EditorProps {
   markdown: string;
@@ -52,31 +46,31 @@ const simpleSandpackConfig: SandpackConfig = {
 
 const Editor: FC<EditorProps> = ({ markdown, editorRef, onChange }) => {
 
-  const handleImageUpload = async (file: File) => {
-    // Create a form data object to upload the image to Cloudinary
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  // const handleImageUpload = async (file: File) => {
+  //   // Create a form data object to upload the image to Cloudinary
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  //   formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
-    // Make a request to Cloudinary's API to upload the image
-    try {
-      const response = await fetch(CLOUDINARY_URL, {
-        method: 'POST',
-        body: formData,
-      });
+  //   // Make a request to Cloudinary's API to upload the image
+  //   try {
+  //     const response = await fetch(CLOUDINARY_URL, {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (data.secure_url) {
-        return Promise.resolve(data.secure_url);  // Return the image URL from Cloudinary
-      } else {
-        return Promise.reject('Image upload failed');
-      }
-    } catch (error) {
-      console.error('Cloudinary upload error:', error);
-      return Promise.reject('Image upload failed');
-    }
-  };
+  //     if (data.secure_url) {
+  //       return Promise.resolve(data.secure_url);  // Return the image URL from Cloudinary
+  //     } else {
+  //       return Promise.reject('Image upload failed');
+  //     }
+  //   } catch (error) {
+  //     console.error('Cloudinary upload error:', error);
+  //     return Promise.reject('Image upload failed');
+  //   }
+  // };
 
   return (
     <MDXEditor
@@ -115,13 +109,13 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef, onChange }) => {
         thematicBreakPlugin(),
         linkPlugin(),
         quotePlugin(),
-        imagePlugin({
-          imageUploadHandler: (file) => handleImageUpload(file),
-          imageAutocompleteSuggestions: [
-            'https://picsum.photos/200/300',
-            'https://picsum.photos/200'
-          ]
-        }),
+        // imagePlugin({
+        //   imageUploadHandler: (file) => handleImageUpload(file),
+        //   imageAutocompleteSuggestions: [
+        //     'https://picsum.photos/200/300',
+        //     'https://picsum.photos/200'
+        //   ]
+        // }),
         toolbarPlugin({
           toolbarContents: () => (
             <>
