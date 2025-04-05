@@ -30,6 +30,11 @@ jobs:
         run: |
           pnpm install
 
+      # Install Vercel CLI
+      - name: Install Vercel CLI
+        run: |
+          npm install -g vercel
+
       # Set up Prisma and run migrations
       - name: Generate and apply Prisma migrations
         env:
