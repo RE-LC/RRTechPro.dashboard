@@ -3,30 +3,42 @@ name: Prisma Migrations
 on:
   push:
     branches:
-      - master
+      - master  # or any branch you prefer for deployment
 
 jobs:
-  migrate:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the code
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
 
+      # Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v4.3.0
         with:
-          node-version: '20'
+          node-version: '20'  # Use the appropriate version of Node.js for your project
 
+      # Install pnpm
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
+
+      # Install dependencies using pnpm
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          pnpm install
 
-      - name: Run Prisma Migrate Deploy
+      # Set up Prisma and run migrations
+      - name: Generate and apply Prisma migrations
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: | 
-            pnpx prisma migrate deploy
-            pnpx prisma generate
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Make sure to add DATABASE_URL to GitHub secrets
+        run: |
+          npx prisma migrate deploy
+          npx prisma generate
 
+      # Deploy to Vercel
       - name: Deploy to Vercel
-        run: pnpx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --prod
