@@ -3,7 +3,7 @@ name: Prisma Migrations
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   migrate:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4.3.0
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Install dependencies
         run: pnpm install
@@ -24,7 +24,9 @@ jobs:
       - name: Run Prisma Migrate Deploy
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: pnpx prisma migrate deploy
+        run: | 
+            pnpx prisma migrate deploy
+            pnpx prisma generate
 
       - name: Deploy to Vercel
         run: pnpx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
