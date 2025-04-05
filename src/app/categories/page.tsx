@@ -1,7 +1,6 @@
 import { DataTable } from "@/components/data-table/data-table";
 import { columns } from "@/columns/category.column";
 import { prisma } from "@/lib/prisma";
-import { Category } from "@prisma/client";
 
 export default async function Posts() {
     const categories = await prisma.category.findMany({
@@ -17,8 +16,8 @@ export default async function Posts() {
         },
     });
 
-    const formattedCategories = categories.map(item: Category => ({
-        ...item,
+    const formattedCategories = categories.map(category => ({
+        ...category,
         posts: category._count.posts
     }));
 
