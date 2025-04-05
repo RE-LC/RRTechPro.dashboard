@@ -1,4 +1,4 @@
-name: Prisma Migrations
+name: Deployment
 
 on:
   push:
@@ -40,8 +40,8 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Make sure to add DATABASE_URL to GitHub secrets
         run: |
-          npx prisma migrate deploy
-          npx prisma generate
+          pnpx prisma migrate deploy
+          pnpx prisma generate
 
       # Deploy to Vercel
       - name: Deploy to Vercel
