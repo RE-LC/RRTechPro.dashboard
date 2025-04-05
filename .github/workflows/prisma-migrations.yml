@@ -28,7 +28,7 @@ jobs:
       # Install dependencies using pnpm
       - name: Install dependencies
         run: |
-          pnpm install
+          pnpm add prisma
 
       # Install Vercel CLI
       - name: Install Vercel CLI
