@@ -46,6 +46,7 @@ const DeleteCategory = ({ path }: { path: string }) => {
             await axios.delete(`${API_BASE_URL}${path}`);
             toast.success("Category deleted successfully", { richColors: true });
             setIsDialogOpen(false); // Close the dialog after successful deletion
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             toast.error("Error deleting category", { richColors: true });
         }
@@ -91,14 +92,14 @@ export const columns: ColumnDef<Category>[] = [
                     table.getIsAllPageRowsSelected() ||
                     (table.getIsSomePageRowsSelected() && "indeterminate")
                 }
-                onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                 aria-label="Select all"
             />
         ),
         cell: ({ row }) => (
             <Checkbox
                 checked={row.getIsSelected()}
-                onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
                 aria-label="Select row"
             />
         ),

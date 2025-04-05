@@ -66,6 +66,7 @@ export const handleAddTag = async (
         form.setValue("tags", [...tags, newTag]);
         setAvailableTags((prevTags) => [...prevTags, newTag]);
         toast.success("Tag created successfully!", { richColors: true });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         toast.error("Error creating tag!", { richColors: true });
     }
@@ -78,9 +79,9 @@ export const handleRemoveTag = (
     setAvailableTags: React.Dispatch<React.SetStateAction<Tag[]>>,
 ) => {
     const tags = form.getValues("tags") || [];
-    const newTags = tags.filter((_: any, i: number) => i !== index);
+    const newTags = tags.filter((i: number) => i !== index);
     form.setValue("tags", newTags);
-    setAvailableTags(tags.filter((_: any, i: number) => i !== index));
+    setAvailableTags(tags.filter((i: number) => i !== index));
 };
 
 // Remove a tag from the database
@@ -88,6 +89,7 @@ export const handleRemoveTagFromDb = async (tagId: string) => {
     try {
         await axios.delete(`${API_BASE_URL}/tags/${tagId}`);
         toast.success("Tag deleted from database!");
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         toast.error("Error deleting tag!");
     }
