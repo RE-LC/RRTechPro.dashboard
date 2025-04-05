@@ -1,9 +1,9 @@
-name: Prisma Migrations
+name: Deployment
 
 on:
   push:
     branches:
-      - master  # or any branch you prefer for deployment
+      - master # or any branch you prefer for deployment
 
 jobs:
   deploy:
@@ -18,17 +18,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4.3.0
         with:
-          node-version: '20'  # Use the appropriate version of Node.js for your project
+          node-version: "20" # Use the appropriate version of Node.js for your project
 
       # Install pnpm
       - name: Install pnpm
         run: |
-          npm install -g pnpm
+          npm install -g pnpm  # Install pnpm globally
 
-      # Install dependencies using pnpm
+      # Install dependencies
       - name: Install dependencies
         run: |
-          pnpm install
+          pnpm add prisma
 
       # Install Vercel CLI
       - name: Install Vercel CLI
@@ -38,10 +38,10 @@ jobs:
       # Set up Prisma and run migrations
       - name: Generate and apply Prisma migrations
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Make sure to add DATABASE_URL to GitHub secrets
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} # Make sure to add DATABASE_URL to GitHub secrets
         run: |
-          npx prisma migrate deploy
-          npx prisma generate
+          pnpx prisma migrate deploy
+          pnpx prisma generate
 
       # Deploy to Vercel
       - name: Deploy to Vercel
