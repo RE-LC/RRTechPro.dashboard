@@ -19,11 +19,16 @@ jobs:
         uses: actions/setup-node@v4.3.0
         with:
           node-version: '20'  # Use the appropriate version of Node.js for your project
+      
+      # Install pnpm
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm  # Install pnpm globally
 
       # Install dependencies
       - name: Install dependencies
         run: |
-          npm install
+          pnpm install
 
       # Install Vercel CLI
       - name: Install Vercel CLI
@@ -35,8 +40,8 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Make sure to add DATABASE_URL to GitHub secrets
         run: |
-          npx prisma migrate deploy
-          npx prisma generate
+          pnpx prisma migrate deploy
+          pnpx prisma generate
 
       # Deploy to Vercel
       - name: Deploy to Vercel
