@@ -20,28 +20,23 @@ jobs:
         with:
           node-version: '20'  # Use the appropriate version of Node.js for your project
 
-      # Install pnpm
-      - name: Install pnpm
-        run: |
-          npm install -g pnpm
-
       # Install dependencies using pnpm
       - name: Install Prisma CLI
         run: |
-          pnpm add prisma
+          npm install prisma
 
       # Install Vercel CLI
       - name: Install Vercel CLI
         run: |
-          pnpm add -g vercel
+          npm install -g vercel
 
       # Set up Prisma and run migrations
       - name: Generate and apply Prisma migrations
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Make sure to add DATABASE_URL to GitHub secrets
         run: |
-          pnpx prisma migrate deploy
-          pnpx prisma generate
+          npx prisma migrate deploy
+          npx prisma generate
 
       # Deploy to Vercel
       - name: Deploy to Vercel
