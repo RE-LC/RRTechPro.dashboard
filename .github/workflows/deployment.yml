@@ -20,10 +20,10 @@ jobs:
         with:
           node-version: '20'  # Use the appropriate version of Node.js for your project
 
-      # Install dependencies using pnpm
-      - name: Install Prisma CLI
+      # Install dependencies
+      - name: Install dependencies
         run: |
-          npm install prisma
+          npm install
 
       # Install Vercel CLI
       - name: Install Vercel CLI
