@@ -1,4 +1,4 @@
-name: Prisma Migrations
+name: Deployment
 
 on:
   push:
@@ -26,22 +26,22 @@ jobs:
           npm install -g pnpm
 
       # Install dependencies using pnpm
-      - name: Install dependencies
+      - name: Install Prisma CLI
         run: |
-          pnpm install
+          pnpm add prisma
 
       # Install Vercel CLI
       - name: Install Vercel CLI
         run: |
-          npm install -g vercel
+          pnpm add -g vercel
 
       # Set up Prisma and run migrations
       - name: Generate and apply Prisma migrations
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Make sure to add DATABASE_URL to GitHub secrets
         run: |
-          npx prisma migrate deploy
-          npx prisma generate
+          pnpx prisma migrate deploy
+          pnpx prisma generate
 
       # Deploy to Vercel
       - name: Deploy to Vercel
