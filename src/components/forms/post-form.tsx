@@ -81,8 +81,6 @@ interface PostFormProps {
   initialData?: Post
 }
 
-const API_BASE_URL = process.env.API_BASE_URL;
-
 export default function PostForm({ tags, categories, initialData }: PostFormProps) {
   const [, setIsClient] = useState(false);
   const [availableTags, setAvailableTags] = useState<Tag[]>(tags);
@@ -176,9 +174,9 @@ export default function PostForm({ tags, categories, initialData }: PostFormProp
     setLoading(true)
     try {
       if (initialData) {
-        await axios.post(`/${API_BASE_URL}/post/${initialData.id}`, values);
+        await axios.post(`/api/post/${initialData.id}`, values);
       } else {
-        await axios.post(`/${API_BASE_URL}/post`, values);
+        await axios.post(`/api/post`, values);
       }
 
       router.push("/posts");

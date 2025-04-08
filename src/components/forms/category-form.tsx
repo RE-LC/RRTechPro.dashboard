@@ -40,8 +40,6 @@ interface CategoryFormProps {
     initialData?: Category
 }
 
-const API_BASE_URL = process.env.API_BASE_URL;
-
 export default function CategoryForm({ initialData }: CategoryFormProps) {
     const [, setLoading] = useState(false);
     const router = useRouter();
@@ -63,9 +61,9 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
 
         try {
             if (initialData) {
-                await axios.post(`/${API_BASE_URL}/categories/${initialData.id}`, values)
+                await axios.post(`/api/categories/${initialData.id}`, values)
             } else {
-                await axios.post(`/${API_BASE_URL}/categories`, values)
+                await axios.post(`/api/categories`, values)
             }
 
             router.back();

@@ -35,15 +35,13 @@ interface Category {
     posts: number
 }
 
-const API_BASE_URL = process.env.API_BASE_URL;
-
 const DeleteCategory = ({ path }: { path: string }) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     // Function to handle the deletion request
     async function deleteCategoryRequest() {
         try {
-            await axios.delete(`/${API_BASE_URL}${path}`);
+            await axios.delete(`/api${path}`);
             toast.success("Category deleted successfully", { richColors: true });
             setIsDialogOpen(false); // Close the dialog after successful deletion
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
