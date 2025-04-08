@@ -68,13 +68,14 @@
     "@eslint/eslintrc": "^3",
     "@mdxeditor/editor": "^3.29.1",
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.17.30",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
     "prisma": "6.5.0",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.2",
     "typescript": "^5"
   }
 }

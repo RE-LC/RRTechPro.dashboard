@@ -14,19 +14,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface Category {
     id: string
@@ -35,51 +25,23 @@ interface Category {
     posts: number
 }
 
-const DeleteCategory = ({ path }: { path: string }) => {
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+async function deleteCategoryRequest(id: string) {
+    // Ask for confirmation before proceeding
+    const isConfirmed = window.confirm("Are you sure you want to delete this category?");
 
-    // Function to handle the deletion request
-    async function deleteCategoryRequest() {
-        try {
-            await axios.delete(`/api${path}`);
-            toast.success("Category deleted successfully", { richColors: true });
-            setIsDialogOpen(false); // Close the dialog after successful deletion
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error) {
-            toast.error("Error deleting category", { richColors: true });
-        }
+    if (!isConfirmed) {
+        return; 
     }
 
-    return (
-        <div>
-            {/* Trigger to open the dialog */}
-            <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <AlertDialogTrigger asChild>
-                    <button onClick={() => setIsDialogOpen(true)}>Delete Category</button>
-                </AlertDialogTrigger>
+    try {
+        await axios.delete(`/api/categories/${id}`);
+        toast.success("Category deleted successfully", { richColors: true });
+        window.location.reload();        
+    } catch (error) {
+        toast.error("Error deleting category", { richColors: true });
+    }
+}
 
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete the category
-                            and remove it from our database.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-
-                    <AlertDialogFooter>
-                        <AlertDialogCancel onClick={() => setIsDialogOpen(false)}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                            onClick={deleteCategoryRequest}
-                        >
-                            Continue
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        </div>
-    );
-};
 
 export const columns: ColumnDef<Category>[] = [
     {
@@ -154,10 +116,7 @@ export const columns: ColumnDef<Category>[] = [
                             Copy Category ID
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={()=> <DeleteCategory path={`/categories/${category.id}`} />}>Delete</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => deleteCategoryRequest(category.id)}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );
