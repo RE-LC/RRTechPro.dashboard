@@ -176,9 +176,9 @@ export default function PostForm({ tags, categories, initialData }: PostFormProp
     setLoading(true)
     try {
       if (initialData) {
-        await axios.post(`${API_BASE_URL}/post/${initialData.id}`, values);
+        await axios.post(`/${API_BASE_URL}/post/${initialData.id}`, values);
       } else {
-        await axios.post(`${API_BASE_URL}/post`, values);
+        await axios.post(`/${API_BASE_URL}/post`, values);
       }
 
       router.push("/posts");

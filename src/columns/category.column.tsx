@@ -43,7 +43,7 @@ const DeleteCategory = ({ path }: { path: string }) => {
     // Function to handle the deletion request
     async function deleteCategoryRequest() {
         try {
-            await axios.delete(`${API_BASE_URL}${path}`);
+            await axios.delete(`/${API_BASE_URL}${path}`);
             toast.success("Category deleted successfully", { richColors: true });
             setIsDialogOpen(false); // Close the dialog after successful deletion
             // eslint-disable-next-line @typescript-eslint/no-unused-vars

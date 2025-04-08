@@ -7,7 +7,7 @@ const API_BASE_URL = process.env.API_BASE_URL;
 // Create a tag in the backend
 export const createTag = async (tagName: string) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/tags`, { tagName }, {
+        const response = await axios.post(`/${API_BASE_URL}/tags`, { tagName }, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -87,7 +87,7 @@ export const handleRemoveTag = (
 // Remove a tag from the database
 export const handleRemoveTagFromDb = async (tagId: string) => {
     try {
-        await axios.delete(`${API_BASE_URL}/tags/${tagId}`);
+        await axios.delete(`/${API_BASE_URL}/tags/${tagId}`);
         toast.success("Tag deleted from database!");
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

@@ -63,9 +63,9 @@ export default function CategoryForm({ initialData }: CategoryFormProps) {
 
         try {
             if (initialData) {
-                await axios.post(`${API_BASE_URL}/categories/${initialData.id}`, values)
+                await axios.post(`/${API_BASE_URL}/categories/${initialData.id}`, values)
             } else {
-                await axios.post(`${API_BASE_URL}/categories`, values)
+                await axios.post(`/${API_BASE_URL}/categories`, values)
             }
 
             router.back();
